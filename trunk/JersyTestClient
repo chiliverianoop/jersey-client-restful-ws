@@ -1,0 +1,26 @@
+package com.mkyong.client;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+
+import javax.ws.rs.core.MediaType;
+
+
+public class ClientTest {
+
+	private static final String URL = "https://somesite.com/API/REST/2.0/data/contacts";
+	private static final String USER_NAME = "ness\\ranjith.narahari";
+	private static final String PASSWORD = "onetwothree";
+
+	public static void main(String[] args) {
+
+		Client c = Client.create();
+		c.addFilter(new HTTPBasicAuthFilter(USER_NAME,PASSWORD));
+		WebResource resource = c.resource(URL);
+		String response = resource.accept(MediaType.APPLICATION_JSON_TYPE).get(String.class); //application/xml
+		System.out.println(response);
+		System.out.println("DONE");
+	}
+
+}
